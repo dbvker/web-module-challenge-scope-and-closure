@@ -69,7 +69,7 @@ function inning() {
   return Math.floor(Math.random() * 3);
 }
 
-console.log("Task 2", inning);
+console.log("Task 2", inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -176,16 +176,16 @@ function scoreboard(getInningScorecb, inningcb, inningNum) {
     teamScores.push(`Inning ${i + 1}: Away ${awayScores[i]} - Home ${homeScores[i]}`);
   }
   // for loop that adds up the away and home points in the away and home scores const respectively
-  for (let i = 0; i < teamScores.length; i++){
+  for (let i = 0; i < inningNum; i++){
     totalAwayScore += awayScores[i];
     totalHomeScore += homeScores[i];
   }
 
   // If statement to push a final message and the final score of both teams to the teamScore array
-  if (totalAwayScore === totalHomeScore){
-    teamScores.push(`This game will require extra innings: Away ${totalAwayScore} - Home ${totalHomeScore}`);
-  } else {
+  if (totalAwayScore !== totalHomeScore){
     teamScores.push(`Final Score: Away ${totalAwayScore} - Home ${totalHomeScore}`);
+  } else {
+    teamScores.push(`This game will require extra innings: Away ${totalAwayScore} - Home ${totalHomeScore}`);
   }
   return teamScores;
 }
