@@ -126,8 +126,8 @@ Use the scoreboard function below to do the following:
   3. Receive a number of innings to be played
   4. Return an array where each of it's index values equals a string stating the Home and Away team's scores for each inning.  Not the cumulative score.
   5. If there's a tie at the end of the innings, add this message containing the score to the end of the array:  "This game will require extra innings: Away 12 - Home 12"  (see tie example below)
-     If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below)
-  
+     If there isn't a tie, add this message to the end of the array: "Final Score: Away 13 - Home 11"  (see no tie example below) */
+  /*
   NO TIE example: invoking scoreboard(getInningScore,inning, 9) might return 
   an array of strings like this:
 [
@@ -159,35 +159,27 @@ Use the scoreboard function below to do the following:
 ]  
   */
 
-function scoreboard(getInningScorecb, inningcb, inningNum) {
-  // Empty arrays to keep track of the teamScores, homeScores, and awayScores
+// inningcb         => Pulls from task 2 and generates a random number between 0 and 2
+// getInningScorecb => Pulls from task 4 and returns the score
+// numberOfInnings  => parameter that specifies the number of innings to be played
+function scoreboard(getInningScorecb, inningcb, numOfInnings) {
+  // Empty arrays to keep track of the allScores
   const allScores = [];
-  const homeScores = [];
-  const awayScores = [];
-
   // Keeps track of score and starts at zero
-  let totalAwayScore = 0;
-  let totalHomeScore = 0;
-
+  let awayScore = 0;
+  let homeScore = 0;
   // For loop that gets a random number from the inning function and gives random scores to away and home based on the inningNum given
-  for (let i = 0; i < inningNum; i++) {
+  for (let i = 0; i < numOfInnings; i++) {
     const scores = getInningScorecb(inningcb);
-    awayScores.push(scores.Away);
-    homeScores.push(scores.Home);
-    allScores.push(`Inning ${i + 1}: Away ${awayScores[i]} - Home ${homeScores[i]}`);
-    totalAwayScore += awayScores[i];
-    totalHomeScore += homeScores[i];
+    awayScore = awayScore + scores.Home;
+    homeScore = homeScore + scores.Away;
+    allScores.push(`Inning ${i + 1}: Away ${scores.Away} - Home ${scores.Home}`);
   }
-
   // If statement to push a final message and the final score of both teams to the teamScore array
-  if (totalAwayScore !== totalHomeScore) {
-    allScores.push(
-      `Final Score: Away ${totalAwayScore} - Home ${totalHomeScore}`
-    );
+  if (awayScore !== homeScore) {
+    allScores.push(`Final Score: Away ${awayScore} - Home ${homeScore}`);
   } else {
-    allScores.push(
-      `This game will require extra innings: Away ${totalAwayScore} - Home ${totalHomeScore}`
-    );
+    allScores.push(`This game will require extra innings: Away ${awayScore} - Home ${homeScore}`);
   }
   return allScores;
 }
