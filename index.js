@@ -31,11 +31,13 @@ console.log(
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
-     - 
+     - The count variable in counter1 is private scope within counter1 and the count variable in counter2 is public scope.
   2. Which of the two uses a closure? How can you tell?
     - The first counter uses closure.  It has a function nested inside of another function.
   3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better?
-    - 
+    - Counter2 would be good if theres only a need for one counter in the whole program because it will 
+    change when count is used anytime. Counter1 is good for when theres multiple counters and you want 
+    to keep the count variable private to that specific function.
 */
 
 // counter1 code
@@ -69,7 +71,7 @@ function inning() {
   return Math.floor(Math.random() * 3);
 }
 
-console.log("Task 2", inning());
+console.log("Task 2:", inning());
 
 /* ⚾️⚾️⚾️ Task 3: finalScore() ⚾️⚾️⚾️
 Use the finalScore function below to do the following:
@@ -91,8 +93,8 @@ function finalScore(inningcb, inningNum) {
   let awayScore = 0;
 
   for (let i = 0; i < inningNum; i++) {
-    homeScore = homeScore + inningcb();
-    awayScore = awayScore + inningcb();
+    homeScore += inningcb();
+    awayScore += inningcb();
   }
   return {
     Home: homeScore,
@@ -158,36 +160,36 @@ Use the scoreboard function below to do the following:
   */
 
 function scoreboard(getInningScorecb, inningcb, inningNum) {
-  /* CODE HERE */
   // Empty arrays to keep track of the teamScores, homeScores, and awayScores
-  const teamScores = [];
+  const allScores = [];
   const homeScores = [];
   const awayScores = [];
 
   // Keeps track of score and starts at zero
-  var totalAwayScore = 0;
-  var totalHomeScore = 0;
+  let totalAwayScore = 0;
+  let totalHomeScore = 0;
 
   // For loop that gets a random number from the inning function and gives random scores to away and home based on the inningNum given
   for (let i = 0; i < inningNum; i++) {
     const scores = getInningScorecb(inningcb);
     awayScores.push(scores.Away);
     homeScores.push(scores.Home);
-    teamScores.push(`Inning ${i + 1}: Away ${awayScores[i]} - Home ${homeScores[i]}`);
-  }
-  // for loop that adds up the away and home points in the away and home scores const respectively
-  for (let i = 0; i < inningNum; i++){
+    allScores.push(`Inning ${i + 1}: Away ${awayScores[i]} - Home ${homeScores[i]}`);
     totalAwayScore += awayScores[i];
     totalHomeScore += homeScores[i];
   }
 
   // If statement to push a final message and the final score of both teams to the teamScore array
-  if (totalAwayScore !== totalHomeScore){
-    teamScores.push(`Final Score: Away ${totalAwayScore} - Home ${totalHomeScore}`);
+  if (totalAwayScore !== totalHomeScore) {
+    allScores.push(
+      `Final Score: Away ${totalAwayScore} - Home ${totalHomeScore}`
+    );
   } else {
-    teamScores.push(`This game will require extra innings: Away ${totalAwayScore} - Home ${totalHomeScore}`);
+    allScores.push(
+      `This game will require extra innings: Away ${totalAwayScore} - Home ${totalHomeScore}`
+    );
   }
-  return teamScores;
+  return allScores;
 }
 
 console.log("Task 5:", scoreboard(getInningScore, inning, 9));

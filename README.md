@@ -61,6 +61,7 @@ You will be running your tests in one terminal and debugging in the other. As yo
 Edit the `ReadMe` file with your answers to the questions below.
 
 1. In your own words, define closure (1-2 sentences).
+  - A closure is when an inner function that reaches out into its outer function to grab a value defined in the outer function.
 2. Study the following code, then answer the questions below.
 
 ```js
@@ -82,8 +83,11 @@ dansRoll();
 ```
 
 a. Where is closure used in this code? How can you tell?
+  - The closure happens when the inner function reaches out to personalDice and receives the parameter name.
 b. Compare and contrast calling `dansRoll` the first and second time. What is always the same? What could change?
+  - The name 'Dan' is always the same. The newRoll constant will change on each roll.
 c. What is the lexical scope of `newRoll`? 
+  - The lexical scope is the return function.
 
 
 ### Task 3 - Stretch Goals
